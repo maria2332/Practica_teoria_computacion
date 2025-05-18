@@ -1,3 +1,4 @@
+import os
 from lexer import lexer
 
 def extraer_urls(html):
@@ -17,20 +18,24 @@ def extraer_urls(html):
     return hrefs, srcs
 
 def main():
-    archivo = "prueba1.html"  # cámbialo al nombre del archivo que quieras analizar
+    carpeta = "."  # usa "." si tienes los HTML en la misma carpeta
 
-    with open(archivo, encoding='utf-8') as f:
-        html = f.read()
+    archivos = sorted(f for f in os.listdir(carpeta) if f.endswith(".html"))
 
-    enlaces, imagenes = extraer_urls(html)
+    for archivo in archivos:
+        with open(os.path.join(carpeta, archivo), encoding='utf-8') as f:
+            html = f.read()
 
-    print("🔗 Enlaces encontrados:")
-    for e in enlaces:
-        print(f" - {e}")
+        hrefs, srcs = extraer_urls(html)
 
-    print("\n🖼️ Imágenes encontradas:")
-    for i in imagenes:
-        print(f" - {i}")
+        print(f"\n🗂️ Procesando {archivo}")
+        print("🔗 Enlaces encontrados:")
+        for h in hrefs:
+            print(f" - {h}")
+
+        print("🖼️ Imágenes encontradas:")
+        for s in srcs:
+            print(f" - {s}")
 
 if __name__ == "__main__":
     main()
