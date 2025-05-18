@@ -15,8 +15,8 @@ def extraer_urls(html):
     return hrefs, srcs
 
 def main():
-    html_dir = "/mnt/data"
-    with open("/mnt/data/urls_extraidas.txt", "w", encoding='utf-8') as out:
+    html_dir = "."
+    with open("urls_extraidas.txt", "w", encoding='utf-8') as out:
         for filename in sorted(f for f in os.listdir(html_dir) if f.endswith(".html")):
             filepath = os.path.join(html_dir, filename)
             with open(filepath, encoding='utf-8') as f:
