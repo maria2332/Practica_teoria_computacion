@@ -1,39 +1,36 @@
-import os
 from lexer import lexer
-from parser import is_html_balanced
 
 def extraer_urls(html):
-    hrefs, srcs = [], []
-    lexer.input(html)
+    hrefs = []
+    srcs = []
     last_token = ""
+
+    lexer.input(html)
+
     for tok in lexer:
-        if last_token == "HREF_ATTR" and tok.type == "URL":
+        if last_token == "HREF" and tok.type == "URL":
             hrefs.append(tok.value)
-        elif last_token == "SRC_ATTR" and tok.type == "URL":
+        elif last_token == "SRC" and tok.type == "URL":
             srcs.append(tok.value)
         last_token = tok.type
+
     return hrefs, srcs
 
 def main():
-    html_dir = "."
-    with open("urls_extraidas.txt", "w", encoding='utf-8') as out:
-        for filename in sorted(f for f in os.listdir(html_dir) if f.endswith(".html")):
-            filepath = os.path.join(html_dir, filename)
-            with open(filepath, encoding='utf-8') as f:
-                html = f.read()
+    archivo = "prueba1.html"  # cámbialo al nombre del archivo que quieras analizar
 
-            hrefs, srcs = extraer_urls(html)
-            balanceado = is_html_balanced(html)
+    with open(archivo, encoding='utf-8') as f:
+        html = f.read()
 
-            print(f"\n🗂️ Procesando {filename}")
-            print("🔗 Enlaces encontrados:", hrefs)
-            print("🖼️ Imágenes encontradas:", srcs)
-            print("✅ ¿HTML balanceado?:", balanceado)
+    enlaces, imagenes = extraer_urls(html)
 
-            out.write(f"Archivo: {filename}\n")
-            out.write("Enlaces:\n" + "\n".join(hrefs) + "\n")
-            out.write("Imágenes:\n" + "\n".join(srcs) + "\n")
-            out.write("Balanceado: " + str(balanceado) + "\n\n")
+    print("🔗 Enlaces encontrados:")
+    for e in enlaces:
+        print(f" - {e}")
+
+    print("\n🖼️ Imágenes encontradas:")
+    for i in imagenes:
+        print(f" - {i}")
 
 if __name__ == "__main__":
     main()
