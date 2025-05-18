@@ -1,6 +1,6 @@
 import os
 from lexer import lexer
-from parser import HTMLBalanceChecker
+from parser import is_html_balanced  # función personalizada sin librerías externas
 
 def extraer_urls(html):
     hrefs = []
@@ -18,13 +18,8 @@ def extraer_urls(html):
 
     return hrefs, srcs
 
-def esta_balanceado(html):
-    parser = HTMLBalanceChecker()
-    parser.feed(html)
-    return parser.is_balanced()
-
 def main():
-    carpeta = "."  # carpeta actual
+    carpeta = "."  # Carpeta actual
     archivos = sorted(f for f in os.listdir(carpeta) if f.endswith(".html"))
 
     for archivo in archivos:
@@ -32,7 +27,7 @@ def main():
             html = f.read()
 
         hrefs, srcs = extraer_urls(html)
-        balanceado = esta_balanceado(html)
+        balanceado = is_html_balanced(html)
 
         print(f"\n🗂️ Procesando {archivo}")
         print("🔗 Enlaces encontrados:")
