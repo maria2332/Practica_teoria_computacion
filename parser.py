@@ -1,18 +1,24 @@
-import re
+from html.parser import HTMLParser
 
-def is_html_balanced(html):
-    stack = []
-    tags = re.findall(r'</?([a-zA-Z0-9]+)[^>]*>', html)
-    void_tags = {'br', 'img', 'meta', 'input', 'hr', 'link', 'area'}
+class HTMLBalanceChecker(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.stack = []
+        self.unbalanced = False
+        self.void_tags = {
+            "area", "base", "br", "col", "embed", "hr",
+            "img", "input", "link", "meta", "param", "source", "track", "wbr"
+        }
 
-    for i, tag in enumerate(tags):
-        tag = tag.lower()
-        if tag in void_tags:
-            continue
-        elif i + 1 < len(tags) and tags[i+1].lower() == tag:
-            continue
-        elif stack and stack[-1] == tag:
-            stack.pop()
+    def handle_starttag(self, tag, attrs):
+        if tag not in self.void_tags:
+            self.stack.append(tag)
+
+    def handle_endtag(self, tag):
+        if not self.stack or self.stack[-1] != tag:
+            self.unbalanced = True
         else:
-            stack.append(tag)
-    return len(stack) == 0
+            self.stack.pop()
+
+    def is_balanced(self):
+        return not self.stack and not self.unbalanced
