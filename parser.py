@@ -5,9 +5,10 @@ class HTMLBalanceChecker(HTMLParser):
         super().__init__()
         self.stack = []
         self.unbalanced = False
+        self.void_tags = {'br', 'img', 'meta', 'input', 'hr', 'link', 'area'}
 
     def handle_starttag(self, tag, attrs):
-        if tag not in ['br', 'img', 'meta', 'input']:  # etiquetas autoconclusivas
+        if tag not in self.void_tags:
             self.stack.append(tag)
 
     def handle_endtag(self, tag):
