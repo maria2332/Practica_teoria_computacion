@@ -9,7 +9,7 @@ tokens = [
 
 t_TAG_OPEN = r'<'
 t_TAG_CLOSE = r'>'
-t_TAG_SLASH_CLOSE = r'/>'  # Para tags autoconclusivos como <img/>
+t_TAG_SLASH_CLOSE = r'/>'
 
 def t_A_OPEN(t):
     r'[aA]'
@@ -28,8 +28,8 @@ def t_SRC_ATTR(t):
     return t
 
 def t_URL(t):
-    r'"(http[s]?://[^"]+)"'
-    t.value = t.value.strip('"')
+    r'\"(http[s]?://[^"]+)\"'
+    t.value = t.value.strip('\"')
     return t
 
 t_ignore = ' \t\n'
