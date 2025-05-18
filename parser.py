@@ -1,24 +1,28 @@
-from html.parser import HTMLParser
+import re
 
-class HTMLBalanceChecker(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.stack = []
-        self.unbalanced = False
-        self.void_tags = {
-            "area", "base", "br", "col", "embed", "hr",
-            "img", "input", "link", "meta", "param", "source", "track", "wbr"
-        }
+# Lista de etiquetas que no necesitan cierre
+VOID_TAGS = {
+    'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img',
+    'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+}
 
-    def handle_starttag(self, tag, attrs):
-        if tag not in self.void_tags:
-            self.stack.append(tag)
+def is_html_balanced(html):
+    # Encuentra etiquetas de apertura y cierre
+    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
+    
+    stack = []
 
-    def handle_endtag(self, tag):
-        if not self.stack or self.stack[-1] != tag:
-            self.unbalanced = True
-        else:
-            self.stack.pop()
+    for slash, tag in tags:
+        tag = tag.lower()
 
-    def is_balanced(self):
-        return not self.stack and not self.unbalanced
+        if tag in VOID_TAGS:
+            continue  # ignorar autoconclusivas
+
+        if not slash:  # etiqueta de apertura
+            stack.append(tag)
+        else:  # etiqueta de cierre
+            if not stack or stack[-1] != tag:
+                return False
+            stack.pop()
+
+    return len(stack) == 0
