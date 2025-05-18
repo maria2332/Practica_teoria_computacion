@@ -54,3 +54,20 @@ Este proyecto implementa un analizador de páginas HTML que permite:
 3. El programa analizará todos los archivos `.html` en la carpeta,
    extraerá los enlaces e imágenes, y mostrará si cada archivo está bien balanceado.
 
+
+-------------------------------------------
+ CONCLUSIONES
+-------------------------------------------
+
+ El analizador léxico construido con PLY ha sido eficaz para identificar correctamente las etiquetas <a> y <img>, así como para extraer las URLs contenidas en sus atributos href y src.
+
+ El sistema funciona de forma robusta incluso con archivos HTML reales y complejos (como el de Amazon), lo que demuestra que las reglas léxicas diseñadas capturan adecuadamente los patrones relevantes en el texto.
+
+ El verificador de balanceo de etiquetas basado en expresiones regulares y una pila ha permitido detectar correctamente si las etiquetas HTML están bien anidadas y cerradas, sin necesidad de librerías externas.
+
+ Se han identificado correctamente casos mal formateados (como prueba4.html o prueba5.html), donde las etiquetas estaban anidadas de forma incorrecta o mal cerradas, y el programa ha señalado estos como no balanceados, cumpliendo el objetivo de validación sintáctica.
+
+ El sistema ha mostrado que puede distinguir entre HTML balanceado y mal estructurado de forma fiable, aunque no realiza un parseo completo del árbol DOM (lo cual no era necesario para los objetivos de esta práctica).
+
+ No se ha utilizado ningún parser automático como html.parser, BeautifulSoup o similares, cumpliendo estrictamente el uso de análisis léxico personalizado y estructuras clásicas como la pila.
+
