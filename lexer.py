@@ -1,11 +1,13 @@
 import ply.lex as lex
 
-# Tokens definidos
-tokens = ['TAG_OPEN', 'TAG_CLOSE', 'HREF', 'SRC', 'URL']
+tokens = ['TAG_OPEN_A', 'TAG_OPEN_IMG', 'TAG_CLOSE', 'HREF', 'SRC', 'EQUALS', 'URL', 'OTHER_TAG']
 
-def t_TAG_OPEN(t):
-    r'<\s*(a|img)\b'
-    t.value = t.value.lower().strip('<').strip()
+def t_TAG_OPEN_A(t):
+    r'<\s*a\b'
+    return t
+
+def t_TAG_OPEN_IMG(t):
+    r'<\s*img\b'
     return t
 
 def t_TAG_CLOSE(t):
@@ -20,12 +22,19 @@ def t_SRC(t):
     r'src'
     return t
 
+def t_EQUALS(t):
+    r'='
+    return t
+
 def t_URL(t):
     r'"[^"]+"'
     t.value = t.value.strip('"')
     return t
 
-# Ignorar espacios y saltos de línea
+def t_OTHER_TAG(t):
+    r'<[^>]+>'
+    return None  # ignoramos otras etiquetas
+
 t_ignore = ' \t\r\n'
 
 def t_error(t):
