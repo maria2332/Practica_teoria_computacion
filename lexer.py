@@ -1,15 +1,13 @@
 import ply.lex as lex
 
-# Lista de tokens
 tokens = ['A_OPEN', 'IMG_OPEN', 'HREF', 'SRC', 'URL', 'TAG_CLOSE', 'TAG_SLASH_CLOSE']
 
-# Reglas léxicas
 def t_A_OPEN(t):
-    r'<[aA]'
+    r'<a'
     return t
 
 def t_IMG_OPEN(t):
-    r'<[iI][mM][gG]'
+    r'<img'
     return t
 
 def t_HREF(t):
@@ -21,7 +19,7 @@ def t_SRC(t):
     return t
 
 def t_URL(t):
-    r'\"([^"]+)\"'
+    r'"[^"]+"'
     t.value = t.value.strip('"')
     return t
 
@@ -30,10 +28,9 @@ def t_TAG_CLOSE(t):
     return t
 
 def t_TAG_SLASH_CLOSE(t):
-    r'/>'  # Para <img ... />
+    r'/>'  # self-closing tag
     return t
 
-# Ignorar espacios, tabs y saltos de línea
 t_ignore = ' \t\n'
 
 def t_error(t):

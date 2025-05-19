@@ -1,14 +1,16 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-# Listas para almacenar resultados
 hrefs = []
 srcs = []
 
 def p_document(p):
-    '''document : element document
-                | element
-                | empty'''
+    'document : elements'
+    pass
+
+def p_elements(p):
+    '''elements : element elements
+                | element'''
     pass
 
 def p_element_a(p):
@@ -18,10 +20,6 @@ def p_element_a(p):
 def p_element_img(p):
     'element : IMG_OPEN SRC URL TAG_SLASH_CLOSE'
     srcs.append(p[3])
-
-def p_empty(p):
-    'empty :'
-    pass
 
 def p_error(p):
     pass
