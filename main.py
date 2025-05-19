@@ -20,7 +20,7 @@ def analizar_archivo(filename):
 
     print(f"\nBalanceado: {'✅ Sí' if balanceado else '❌ No'}")
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     print("🔍 Iniciando análisis de HTMLs...")
     for i in range(1, 7):
         analizar_archivo(f"prueba{i}.html")

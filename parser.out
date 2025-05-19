@@ -1,0 +1,161 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> document
+Rule 1     document -> elements
+Rule 2     elements -> elements element
+Rule 3     elements -> element
+Rule 4     element -> TAG_OPEN
+Rule 5     element -> TAG_CLOSE
+Rule 6     element -> TAG_SLASH_CLOSE
+Rule 7     element -> HREF
+Rule 8     element -> SRC
+
+Terminals, with rules where they appear
+
+HREF                 : 7
+SRC                  : 8
+TAG_CLOSE            : 5
+TAG_OPEN             : 4
+TAG_SLASH_CLOSE      : 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+document             : 0
+element              : 2 3
+elements             : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . document
+    (1) document -> . elements
+    (2) elements -> . elements element
+    (3) elements -> . element
+    (4) element -> . TAG_OPEN
+    (5) element -> . TAG_CLOSE
+    (6) element -> . TAG_SLASH_CLOSE
+    (7) element -> . HREF
+    (8) element -> . SRC
+
+    TAG_OPEN        shift and go to state 4
+    TAG_CLOSE       shift and go to state 5
+    TAG_SLASH_CLOSE shift and go to state 6
+    HREF            shift and go to state 7
+    SRC             shift and go to state 8
+
+    document                       shift and go to state 1
+    elements                       shift and go to state 2
+    element                        shift and go to state 3
+
+state 1
+
+    (0) S' -> document .
+
+
+
+state 2
+
+    (1) document -> elements .
+    (2) elements -> elements . element
+    (4) element -> . TAG_OPEN
+    (5) element -> . TAG_CLOSE
+    (6) element -> . TAG_SLASH_CLOSE
+    (7) element -> . HREF
+    (8) element -> . SRC
+
+    $end            reduce using rule 1 (document -> elements .)
+    TAG_OPEN        shift and go to state 4
+    TAG_CLOSE       shift and go to state 5
+    TAG_SLASH_CLOSE shift and go to state 6
+    HREF            shift and go to state 7
+    SRC             shift and go to state 8
+
+    element                        shift and go to state 9
+
+state 3
+
+    (3) elements -> element .
+
+    TAG_OPEN        reduce using rule 3 (elements -> element .)
+    TAG_CLOSE       reduce using rule 3 (elements -> element .)
+    TAG_SLASH_CLOSE reduce using rule 3 (elements -> element .)
+    HREF            reduce using rule 3 (elements -> element .)
+    SRC             reduce using rule 3 (elements -> element .)
+    $end            reduce using rule 3 (elements -> element .)
+
+
+state 4
+
+    (4) element -> TAG_OPEN .
+
+    TAG_OPEN        reduce using rule 4 (element -> TAG_OPEN .)
+    TAG_CLOSE       reduce using rule 4 (element -> TAG_OPEN .)
+    TAG_SLASH_CLOSE reduce using rule 4 (element -> TAG_OPEN .)
+    HREF            reduce using rule 4 (element -> TAG_OPEN .)
+    SRC             reduce using rule 4 (element -> TAG_OPEN .)
+    $end            reduce using rule 4 (element -> TAG_OPEN .)
+
+
+state 5
+
+    (5) element -> TAG_CLOSE .
+
+    TAG_OPEN        reduce using rule 5 (element -> TAG_CLOSE .)
+    TAG_CLOSE       reduce using rule 5 (element -> TAG_CLOSE .)
+    TAG_SLASH_CLOSE reduce using rule 5 (element -> TAG_CLOSE .)
+    HREF            reduce using rule 5 (element -> TAG_CLOSE .)
+    SRC             reduce using rule 5 (element -> TAG_CLOSE .)
+    $end            reduce using rule 5 (element -> TAG_CLOSE .)
+
+
+state 6
+
+    (6) element -> TAG_SLASH_CLOSE .
+
+    TAG_OPEN        reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+    TAG_CLOSE       reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+    TAG_SLASH_CLOSE reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+    HREF            reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+    SRC             reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+    $end            reduce using rule 6 (element -> TAG_SLASH_CLOSE .)
+
+
+state 7
+
+    (7) element -> HREF .
+
+    TAG_OPEN        reduce using rule 7 (element -> HREF .)
+    TAG_CLOSE       reduce using rule 7 (element -> HREF .)
+    TAG_SLASH_CLOSE reduce using rule 7 (element -> HREF .)
+    HREF            reduce using rule 7 (element -> HREF .)
+    SRC             reduce using rule 7 (element -> HREF .)
+    $end            reduce using rule 7 (element -> HREF .)
+
+
+state 8
+
+    (8) element -> SRC .
+
+    TAG_OPEN        reduce using rule 8 (element -> SRC .)
+    TAG_CLOSE       reduce using rule 8 (element -> SRC .)
+    TAG_SLASH_CLOSE reduce using rule 8 (element -> SRC .)
+    HREF            reduce using rule 8 (element -> SRC .)
+    SRC             reduce using rule 8 (element -> SRC .)
+    $end            reduce using rule 8 (element -> SRC .)
+
+
+state 9
+
+    (2) elements -> elements element .
+
+    TAG_OPEN        reduce using rule 2 (elements -> elements element .)
+    TAG_CLOSE       reduce using rule 2 (elements -> elements element .)
+    TAG_SLASH_CLOSE reduce using rule 2 (elements -> elements element .)
+    HREF            reduce using rule 2 (elements -> elements element .)
+    SRC             reduce using rule 2 (elements -> elements element .)
+    $end            reduce using rule 2 (elements -> elements element .)
+
