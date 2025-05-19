@@ -4,7 +4,7 @@ tokens = ['TAG_NAME', 'HREF', 'SRC', 'URL']
 
 def t_TAG_NAME(t):
     r'<(a|img)\b'
-    t.value = t.value[1:]  # elimina '<'
+    t.value = t.value[1:]  # elimina el símbolo '<'
     return t
 
 def t_HREF(t):
