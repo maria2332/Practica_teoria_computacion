@@ -13,8 +13,8 @@ Imágenes (0):
 Balanceado: True
 
 prueba3.html
-Enlaces (0):
-
+Enlaces (1):
+http://www.ibm.com
 Imágenes (0):
 
 Balanceado: True
@@ -36,7 +36,8 @@ Balanceado: False
 prueba6.html
 Enlaces (0):
 
-Imágenes (0):
-
+Imágenes (2):
+//flseu.amazon.es/1/batch/1/OP/A1RKKUPIHCS9HS:26263736334068034:FZQD71TWGB7M4YNCP583$uedata=s:2Frd2Fuedata3Fstaticb26id3DFZQD71TWGB7M4YNCP58326pty3DCheckoutPrefetch26spty3Dprefetchassets26pti3D:1000
+https://imageseu.sslimagesamazon.com/images/G/30/gno/sprites/navspriteglobal1xhmdskreorg._CB405936353_.png
 Balanceado: True
 
