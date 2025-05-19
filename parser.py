@@ -11,7 +11,7 @@ current_tag = None # Variable para almacenar la etiqueta actual
 self_closing_tags = {'br', 'img', 'input', 'meta', 'area', 'base', 'col', 'embed', 'hr', 'link', 'param', 'source', 'track', 'wbr'}
 
 def p_document(p): # Función para manejar el documento HTML
-    'document : elements'
+    'document : elements' 
     # Si al final queda algo en el stack, son etiquetas abiertas sin cerrar
     if tags_stack:
         for tag in reversed(tags_stack):
