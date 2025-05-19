@@ -1,6 +1,6 @@
 import os
 from lexer import lexer
-from parser import is_html_balanced  # función personalizada sin librerías externas
+from parser import is_html_balanced  # Usa tu verificador basado en pila
 
 def extraer_urls(html):
     hrefs = []
@@ -30,11 +30,11 @@ def main():
         balanceado = is_html_balanced(html)
 
         print(f"\n🗂️ Procesando {archivo}")
-        print("🔗 Enlaces encontrados:")
+        print(f"🔗 Enlaces encontrados: {len(hrefs)}")
         for h in hrefs:
             print(f" - {h}")
 
-        print("🖼️ Imágenes encontradas:")
+        print(f"🖼️ Imágenes encontradas: {len(srcs)}")
         for s in srcs:
             print(f" - {s}")
 
