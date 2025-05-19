@@ -1,28 +1,25 @@
-# lexer.py
 import ply.lex as lex
 
 # Tokens
 tokens = (
     'TAG_OPEN', 'TAG_CLOSE', 'TAG_SLASH_CLOSE',
-    'HREF', 'SRC', 'URL',
-    'TEXT'
+    'HREF', 'SRC', 'TEXT'
 )
 
-# Estados para capturar atributos condicionalmente
+# Estados
 states = (
     ('atag', 'exclusive'),
     ('imgtag', 'exclusive')
 )
 
-# Reglas para estados iniciales
-
+# Reglas para estado INITIAL
 def t_TAG_OPEN(t):
-    r'<[aA](\s|>)'
+    r'<[aA](?=\s|>)'
     t.lexer.begin('atag')
     return t
 
 def t_TAG_OPEN_IMG(t):
-    r'<[iI][mM][gG](\s|>)'
+    r'<[iI][mM][gG](?=\s|>)'
     t.lexer.begin('imgtag')
     return t
 
@@ -31,7 +28,7 @@ def t_TAG_CLOSE(t):
     return t
 
 def t_TAG_SLASH_CLOSE(t):
-    r'/>'
+    r'/?>'
     t.lexer.begin('INITIAL')
     return t
 
@@ -39,18 +36,14 @@ def t_TEXT(t):
     r'[^<>]+'
     return t
 
-# Estado "atag" para href
+t_ignore = ' \t\r\n'
 
+def t_error(t):
+    t.lexer.skip(1)
+
+# Reglas para estado atag (extracción de href)
 def t_atag_HREF(t):
     r'href\s*=\s*"[^"]+"'
-    return t
-
-def t_atag_ignore(t):
-    r'[^>]+'
-
-def t_atag_TAG_SLASH_CLOSE(t):
-    r'/>'
-    t.lexer.begin('INITIAL')
     return t
 
 def t_atag_TAG_CLOSE(t):
@@ -58,18 +51,19 @@ def t_atag_TAG_CLOSE(t):
     t.lexer.begin('INITIAL')
     return t
 
-# Estado "imgtag" para src
-
-def t_imgtag_SRC(t):
-    r'src\s*=\s*"[^"]+"'
+def t_atag_TAG_SLASH_CLOSE(t):
+    r'/?>'
+    t.lexer.begin('INITIAL')
     return t
 
-def t_imgtag_ignore(t):
-    r'[^>]+'
+t_atag_ignore = ' \t\r\n'
 
-def t_imgtag_TAG_SLASH_CLOSE(t):
-    r'/>'
-    t.lexer.begin('INITIAL')
+def t_atag_error(t):
+    t.lexer.skip(1)
+
+# Reglas para estado imgtag (extracción de src)
+def t_imgtag_SRC(t):
+    r'src\s*=\s*"[^"]+"'
     return t
 
 def t_imgtag_TAG_CLOSE(t):
@@ -77,11 +71,15 @@ def t_imgtag_TAG_CLOSE(t):
     t.lexer.begin('INITIAL')
     return t
 
-# Ignorar espacios y saltos
+def t_imgtag_TAG_SLASH_CLOSE(t):
+    r'/?>'
+    t.lexer.begin('INITIAL')
+    return t
 
-t_ignore = ' \t\n'
+t_imgtag_ignore = ' \t\r\n'
 
-def t_error(t):
+def t_imgtag_error(t):
     t.lexer.skip(1)
 
+# Construir el lexer
 lexer = lex.lex()
