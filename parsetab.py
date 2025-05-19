@@ -27,12 +27,12 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> document","S'",1,None,None,None),
-  ('document -> elements','document',1,'p_document','parser.py',14),
-  ('elements -> elements element','elements',2,'p_elements','parser.py',21),
-  ('elements -> element','elements',1,'p_elements','parser.py',22),
-  ('element -> TAG_OPEN','element',1,'p_element_tag_open','parser.py',26),
-  ('element -> TAG_CLOSE','element',1,'p_element_tag_close','parser.py',34),
-  ('element -> TAG_SLASH_CLOSE','element',1,'p_element_tag_slash_close','parser.py',47),
-  ('element -> HREF','element',1,'p_element_href','parser.py',52),
-  ('element -> SRC','element',1,'p_element_src','parser.py',59),
+  ('document -> elements','document',1,'p_document','parser.py',10),
+  ('elements -> elements element','elements',2,'p_elements','parser.py',14),
+  ('elements -> element','elements',1,'p_elements','parser.py',15),
+  ('element -> TAG_OPEN','element',1,'p_element_tag_open','parser.py',19),
+  ('element -> TAG_CLOSE','element',1,'p_element_tag_close','parser.py',27),
+  ('element -> TAG_SLASH_CLOSE','element',1,'p_element_tag_slash_close','parser.py',33),
+  ('element -> HREF','element',1,'p_element_href','parser.py',38),
+  ('element -> SRC','element',1,'p_element_src','parser.py',45),
 ]
