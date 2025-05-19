@@ -1,23 +1,15 @@
+# lexer.py
 import ply.lex as lex
 
-# Lista de tokens que reconoce el lexer
-tokens = [
-    'A_OPEN',            # <a
-    'IMG_OPEN',          # <img
-    'HREF',              # href
-    'SRC',               # src
-    'URL',               # "..."
-    'TAG_CLOSE',         # >
-    'TAG_SLASH_CLOSE'    # />
-]
+# Lista de tokens
+tokens = ['TAG_OPEN_A', 'TAG_OPEN_IMG', 'HREF', 'SRC', 'URL', 'TAG_END', 'TAG_SELFCLOSE']
 
-# Reglas léxicas
-def t_A_OPEN(t):
-    r'<[aA]\b'
+def t_TAG_OPEN_A(t):
+    r'<a[^>]*'
     return t
 
-def t_IMG_OPEN(t):
-    r'<[iI][mM][gG]\b'
+def t_TAG_OPEN_IMG(t):
+    r'<img[^>]*'
     return t
 
 def t_HREF(t):
@@ -29,24 +21,21 @@ def t_SRC(t):
     return t
 
 def t_URL(t):
-    r'\"([^"]+)\"'
+    r'"([^">]+)"'
     t.value = t.value.strip('"')
     return t
 
-def t_TAG_SLASH_CLOSE(t):
-    r'/>'  # etiquetas autoconclusivas
+def t_TAG_SELFCLOSE(t):
+    r'/>'
     return t
 
-def t_TAG_CLOSE(t):
+def t_TAG_END(t):
     r'>'
     return t
 
-# Ignorar espacios, tabulaciones y saltos de línea
 t_ignore = ' \t\n'
 
-# Manejador de errores léxicos
 def t_error(t):
     t.lexer.skip(1)
 
-# Construir el analizador léxico
 lexer = lex.lex()
