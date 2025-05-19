@@ -1,58 +1,62 @@
-import re
-from lexer import lexer
+import ply.yacc as yacc
+from lexer import tokens
+
+# Pila para verificar el balanceo de etiquetas
+stack = []
+
+# Reglas de la gramática
+def p_document(p):
+    """
+    document : elements
+    """
+    pass
+
+def p_elements(p):
+    """
+    elements : elements element
+             | element
+    """
+    pass
+
+def p_element_open(p):
+    """
+    element : OPEN_TAG
+    """
+    tag = p[1][1:-1].split()[0]  # Obtener el nombre de la etiqueta
+    stack.append(tag)
+
+def p_element_close(p):
+    """
+    element : CLOSE_TAG
+    """
+    tag = p[1][2:-1]
+    if stack and stack[-1] == tag:
+        stack.pop()
+    else:
+        # Marca error en el balanceo
+        stack.append("#MISMATCH#")
+
+def p_element_selfclosing(p):
+    """
+    element : SELF_CLOSING_TAG
+    """
+    # Etiqueta autocontenida, no afecta al balanceo
+    pass
+
+def p_element_text(p):
+    """
+    element : TEXT
+    """
+    pass
+
+def p_error(p):
+    pass
+
+# Crear parser
+parser = yacc.yacc()
 
 def is_html_balanced(html):
-    stack = []
-    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
-    void_tags = {'br', 'img', 'meta', 'hr', 'input', 'link'}
-
-    for slash, tag in tags:
-        tag = tag.lower()
-        if tag in void_tags:
-            continue
-        if not slash:
-            stack.append(tag)
-        else:
-            if not stack or stack[-1] != tag:
-                return False
-            stack.pop()
-    return len(stack) == 0
-
-def parse_html(html):
-    hrefs = []
-    srcs = []
-
-    lexer.input(html)
-    tag_context = None
-    attr_target = None
-    awaiting_equals = False
-    awaiting_value = False
-
-    for tok in lexer:
-        if tok.type == 'TAG_OPEN_A':
-            tag_context = 'a'
-        elif tok.type == 'TAG_OPEN_IMG':
-            tag_context = 'img'
-        elif tok.type == 'TAG_CLOSE':
-            tag_context = None
-            attr_target = None
-            awaiting_equals = False
-            awaiting_value = False
-        elif tok.type == 'HREF' and tag_context == 'a':
-            attr_target = 'href'
-            awaiting_equals = True
-        elif tok.type == 'SRC' and tag_context == 'img':
-            attr_target = 'src'
-            awaiting_equals = True
-        elif tok.type == 'EQUALS' and awaiting_equals:
-            awaiting_equals = False
-            awaiting_value = True
-        elif tok.type == 'URL' and awaiting_value:
-            if attr_target == 'href':
-                hrefs.append(tok.value)
-            elif attr_target == 'src':
-                srcs.append(tok.value)
-            attr_target = None
-            awaiting_value = False
-
-    return hrefs, srcs
+    global stack
+    stack = []  # Reiniciar pila
+    parser.parse(html)
+    return not stack or all(tag != "#MISMATCH#" for tag in stack) == True

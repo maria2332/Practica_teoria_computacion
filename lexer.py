@@ -1,44 +1,85 @@
+# lexer.py
 import ply.lex as lex
 
-tokens = [
-    'TAG_OPEN_A', 'TAG_OPEN_IMG', 'TAG_CLOSE',
-    'HREF', 'SRC', 'EQUALS', 'URL', 'IDENTIFIER'
-]
+# Tokens
+tokens = (
+    'TAG_OPEN', 'TAG_CLOSE', 'TAG_SLASH_CLOSE',
+    'HREF', 'SRC', 'URL',
+    'TEXT'
+)
 
-def t_TAG_OPEN_A(t):
-    r'<\s*a\b'
+# Estados para capturar atributos condicionalmente
+states = (
+    ('atag', 'exclusive'),
+    ('imgtag', 'exclusive')
+)
+
+# Reglas para estados iniciales
+
+def t_TAG_OPEN(t):
+    r'<[aA](\s|>)'
+    t.lexer.begin('atag')
     return t
 
 def t_TAG_OPEN_IMG(t):
-    r'<\s*img\b'
+    r'<[iI][mM][gG](\s|>)'
+    t.lexer.begin('imgtag')
     return t
 
 def t_TAG_CLOSE(t):
-    r'/?>'
+    r'</[a-zA-Z]+>'
     return t
 
-def t_HREF(t):
-    r'href'
+def t_TAG_SLASH_CLOSE(t):
+    r'/>'
+    t.lexer.begin('INITIAL')
     return t
 
-def t_SRC(t):
-    r'src'
+def t_TEXT(t):
+    r'[^<>]+'
     return t
 
-def t_EQUALS(t):
-    r'='
+# Estado "atag" para href
+
+def t_atag_HREF(t):
+    r'href\s*=\s*"[^"]+"'
     return t
 
-def t_URL(t):
-    r'"[^"]*"'
-    t.value = t.value.strip('"')
+def t_atag_ignore(t):
+    r'[^>]+'
+
+def t_atag_TAG_SLASH_CLOSE(t):
+    r'/>'
+    t.lexer.begin('INITIAL')
     return t
 
-def t_IDENTIFIER(t):
-    r'[a-zA-Z_:][a-zA-Z0-9_\-:.]*'
+def t_atag_TAG_CLOSE(t):
+    r'>'
+    t.lexer.begin('INITIAL')
     return t
 
-t_ignore = ' \t\r\n'
+# Estado "imgtag" para src
+
+def t_imgtag_SRC(t):
+    r'src\s*=\s*"[^"]+"'
+    return t
+
+def t_imgtag_ignore(t):
+    r'[^>]+'
+
+def t_imgtag_TAG_SLASH_CLOSE(t):
+    r'/>'
+    t.lexer.begin('INITIAL')
+    return t
+
+def t_imgtag_TAG_CLOSE(t):
+    r'>'
+    t.lexer.begin('INITIAL')
+    return t
+
+# Ignorar espacios y saltos
+
+t_ignore = ' \t\n'
 
 def t_error(t):
     t.lexer.skip(1)
