@@ -1,40 +1,46 @@
 from lexer import lexer
 from parser import parser, stack
+from utils import guardar_urls
 
-archivos = [
-    "prueba1.html",
-    "prueba4.html",
-    "prueba6.html"
-]
+archivos = [f"prueba{i}.html" for i in range(1, 7)]
 
 for archivo in archivos:
     print("=" * 60)
     print(f"📄 Analizando: {archivo}")
 
-    with open(archivo, encoding="utf-8") as f:
-        data = f.read()
+    try:
+        with open(archivo, encoding="utf-8") as f:
+            data = f.read()
+    except FileNotFoundError:
+        print(f"⚠️ No se encontró el archivo: {archivo}")
+        continue
 
-    # Reset para cada archivo
-    urls = []
+    # Reinicio de estado
+    enlaces = []
     imagenes = []
     stack.clear()
 
-    # Lexer: Extraer href y src
+    # Lexer para extraer href y src
     lexer.input(data)
     while tok := lexer.token():
         if tok.type == 'HREF':
-            urls.append(tok.value)
+            enlaces.append(tok.value)
         elif tok.type == 'SRC':
             imagenes.append(tok.value)
 
+    # Mostrar resultados
     print("\n🔗 Enlaces encontrados:")
-    for u in urls:
-        print(f" - {u}")
+    for link in enlaces:
+        print(f" - {link}")
 
     print("\n🖼️ Imágenes encontradas:")
     for img in imagenes:
         print(f" - {img}")
 
-    print("\n📐 Comprobando balanceo de etiquetas...")
+    # Guardar en disco
+    guardar_urls(archivo, enlaces, imagenes)
+
+    # Comprobar balanceo
+    print("\n📐 Comprobando balanceo...")
     parser.parse(data)
-    print("\n")
+    print()
