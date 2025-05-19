@@ -1,14 +1,6 @@
 import ply.lex as lex
 
-tokens = ['A_OPEN', 'IMG_OPEN', 'HREF', 'SRC', 'URL', 'TAG_CLOSE', 'TAG_SLASH_CLOSE']
-
-def t_A_OPEN(t):
-    r'<a'
-    return t
-
-def t_IMG_OPEN(t):
-    r'<img'
-    return t
+tokens = ['HREF', 'SRC', 'URL']
 
 def t_HREF(t):
     r'href'
@@ -19,16 +11,8 @@ def t_SRC(t):
     return t
 
 def t_URL(t):
-    r'"[^"]+"'
+    r'\"([^"]+)\"'
     t.value = t.value.strip('"')
-    return t
-
-def t_TAG_CLOSE(t):
-    r'>'
-    return t
-
-def t_TAG_SLASH_CLOSE(t):
-    r'/>'  # self-closing tag
     return t
 
 t_ignore = ' \t\n'

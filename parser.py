@@ -1,33 +1,21 @@
-import ply.yacc as yacc
-from lexer import tokens
+import re
 
-hrefs = []
-srcs = []
+VOID_TAGS = {
+    'area', 'base', 'br', 'col', 'embed', 'hr',
+    'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+}
 
-def p_document(p):
-    'document : elements'
-    pass
-
-def p_elements(p):
-    '''elements : element elements
-                | element'''
-    pass
-
-def p_element_a(p):
-    'element : A_OPEN HREF URL TAG_CLOSE'
-    hrefs.append(p[3])
-
-def p_element_img(p):
-    'element : IMG_OPEN SRC URL TAG_SLASH_CLOSE'
-    srcs.append(p[3])
-
-def p_error(p):
-    pass
-
-parser = yacc.yacc()
-
-def parse_html(html):
-    global hrefs, srcs
-    hrefs, srcs = [], []
-    parser.parse(html)
-    return hrefs, srcs
+def is_html_balanced(html):
+    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
+    stack = []
+    for slash, tag in tags:
+        tag = tag.lower()
+        if tag in VOID_TAGS:
+            continue
+        if not slash:
+            stack.append(tag)
+        else:
+            if not stack or stack[-1] != tag:
+                return False
+            stack.pop()
+    return len(stack) == 0

@@ -1,33 +1,30 @@
 import os
-from parser import parse_html
+from lexer import lexer
+from parser import is_html_balanced
 
-# Verificador de balanceo básico
-def is_html_balanced(html):
-    import re
-    VOID_TAGS = {'br', 'img', 'meta', 'hr', 'input', 'link'}
-    stack = []
-    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
-    for slash, tag in tags:
-        tag = tag.lower()
-        if tag in VOID_TAGS:
-            continue
-        if not slash:
-            stack.append(tag)
-        else:
-            if not stack or stack[-1] != tag:
-                return False
-            stack.pop()
-    return len(stack) == 0
+def extraer_urls(html):
+    hrefs = []
+    srcs = []
+    last_token = ""
+
+    lexer.input(html)
+    for tok in lexer:
+        if last_token == "HREF" and tok.type == "URL":
+            hrefs.append(tok.value)
+        elif last_token == "SRC" and tok.type == "URL":
+            srcs.append(tok.value)
+        last_token = tok.type
+
+    return hrefs, srcs
 
 def main():
-    html_dir = "."  # Usa la carpeta actual
-    archivos = sorted(f for f in os.listdir(html_dir) if f.endswith(".html"))
+    archivos = sorted(f for f in os.listdir() if f.endswith(".html"))
 
     for archivo in archivos:
-        with open(os.path.join(html_dir, archivo), encoding='utf-8') as f:
+        with open(archivo, encoding='utf-8') as f:
             html = f.read()
 
-        enlaces, imagenes = parse_html(html)
+        enlaces, imagenes = extraer_urls(html)
         balanceado = is_html_balanced(html)
 
         print(f"\n🗂️ Procesando {archivo}")
