@@ -1,32 +1,40 @@
 import ply.lex as lex
 
-tokens = (
-    'TAG_OPEN',
-    'TAG_CLOSE',
-    'SELF_CLOSING',
-    'HREF',
-    'SRC',
-)
+# Lista de tokens
+tokens = ['A_OPEN', 'IMG_OPEN', 'HREF', 'SRC', 'URL', 'TAG_CLOSE', 'TAG_SLASH_CLOSE']
 
-t_ignore = ' \t\n'
+# Reglas léxicas
+def t_A_OPEN(t):
+    r'<[aA]'
+    return t
 
-t_TAG_OPEN = r'<[a-zA-Z]+[^>/]*?>'
-t_TAG_CLOSE = r'</[a-zA-Z]+>'
-t_SELF_CLOSING = r'<[a-zA-Z]+[^>]*?/>'
+def t_IMG_OPEN(t):
+    r'<[iI][mM][gG]'
+    return t
 
 def t_HREF(t):
-    r'href=["\'](.*?)["\']'
-    t.value = t.value.split('=', 1)[1].strip('"\'')
+    r'href'
     return t
 
 def t_SRC(t):
-    r'src=["\'](.*?)["\']'
-    t.value = t.value.split('=', 1)[1].strip('"\'')
+    r'src'
     return t
 
-def t_TEXT(t):
-    r'[^<>\s"\']+'
-    pass  # Ignoramos texto plano
+def t_URL(t):
+    r'\"([^"]+)\"'
+    t.value = t.value.strip('"')
+    return t
+
+def t_TAG_CLOSE(t):
+    r'>'
+    return t
+
+def t_TAG_SLASH_CLOSE(t):
+    r'/>'  # Para <img ... />
+    return t
+
+# Ignorar espacios, tabs y saltos de línea
+t_ignore = ' \t\n'
 
 def t_error(t):
     t.lexer.skip(1)

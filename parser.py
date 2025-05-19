@@ -1,40 +1,35 @@
 import ply.yacc as yacc
 from lexer import tokens
 
-stack = []
+# Listas para almacenar resultados
+hrefs = []
+srcs = []
 
-def p_html(p):
-    'html : elementos'
-    if stack:
-        print("❌ HTML mal balanceado. Pila final:", stack)
-    else:
-        print("✅ HTML bien balanceado.")
-
-def p_elementos(p):
-    '''elementos : elemento elementos
-                 | '''
+def p_document(p):
+    '''document : element document
+                | element
+                | empty'''
     pass
 
-def p_elemento_open(p):
-    'elemento : TAG_OPEN'
-    tag = p[1][1:].split()[0].lower()
-    stack.append(tag)
+def p_element_a(p):
+    'element : A_OPEN HREF URL TAG_CLOSE'
+    hrefs.append(p[3])
 
-def p_elemento_close(p):
-    'elemento : TAG_CLOSE'
-    tag = p[1][2:-1].strip().lower()
-    if not stack:
-        print(f"❌ Error: cerrando {tag} sin etiqueta abierta.")
-    else:
-        open_tag = stack.pop()
-        if open_tag != tag:
-            print(f"❌ Error: cerrando {tag}, se esperaba {open_tag}.")
+def p_element_img(p):
+    'element : IMG_OPEN SRC URL TAG_SLASH_CLOSE'
+    srcs.append(p[3])
 
-def p_elemento_self(p):
-    'elemento : SELF_CLOSING'
-    pass  # No se apilan
+def p_empty(p):
+    'empty :'
+    pass
 
 def p_error(p):
-    print("❌ Error de sintaxis")
+    pass
 
 parser = yacc.yacc()
+
+def parse_html(html):
+    global hrefs, srcs
+    hrefs, srcs = [], []
+    parser.parse(html)
+    return hrefs, srcs

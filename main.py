@@ -1,46 +1,43 @@
-from lexer import lexer
-from parser import parser, stack
-from utils import guardar_urls
+import os
+from parser import parse_html
 
-archivos = [f"prueba{i}.html" for i in range(1, 7)]
+# Verificador de balanceo básico
+def is_html_balanced(html):
+    import re
+    VOID_TAGS = {'br', 'img', 'meta', 'hr', 'input', 'link'}
+    stack = []
+    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
+    for slash, tag in tags:
+        tag = tag.lower()
+        if tag in VOID_TAGS:
+            continue
+        if not slash:
+            stack.append(tag)
+        else:
+            if not stack or stack[-1] != tag:
+                return False
+            stack.pop()
+    return len(stack) == 0
 
-for archivo in archivos:
-    print("=" * 60)
-    print(f"📄 Analizando: {archivo}")
+def main():
+    html_dir = "."  # Usa la carpeta actual
+    archivos = sorted(f for f in os.listdir(html_dir) if f.endswith(".html"))
 
-    try:
-        with open(archivo, encoding="utf-8") as f:
-            data = f.read()
-    except FileNotFoundError:
-        print(f"⚠️ No se encontró el archivo: {archivo}")
-        continue
+    for archivo in archivos:
+        with open(os.path.join(html_dir, archivo), encoding='utf-8') as f:
+            html = f.read()
 
-    # Reinicio de estado
-    enlaces = []
-    imagenes = []
-    stack.clear()
+        enlaces, imagenes = parse_html(html)
+        balanceado = is_html_balanced(html)
 
-    # Lexer para extraer href y src
-    lexer.input(data)
-    while tok := lexer.token():
-        if tok.type == 'HREF':
-            enlaces.append(tok.value)
-        elif tok.type == 'SRC':
-            imagenes.append(tok.value)
+        print(f"\n🗂️ Procesando {archivo}")
+        print(f"🔗 Enlaces encontrados: {len(enlaces)}")
+        for e in enlaces:
+            print(f" - {e}")
+        print(f"🖼️ Imágenes encontradas: {len(imagenes)}")
+        for i in imagenes:
+            print(f" - {i}")
+        print(f"📐 ¿HTML balanceado?: {balanceado}")
 
-    # Mostrar resultados
-    print("\n🔗 Enlaces encontrados:")
-    for link in enlaces:
-        print(f" - {link}")
-
-    print("\n🖼️ Imágenes encontradas:")
-    for img in imagenes:
-        print(f" - {img}")
-
-    # Guardar en disco
-    guardar_urls(archivo, enlaces, imagenes)
-
-    # Comprobar balanceo
-    print("\n📐 Comprobando balanceo...")
-    parser.parse(data)
-    print()
+if __name__ == "__main__":
+    main()
