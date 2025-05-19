@@ -1,55 +1,42 @@
-Archivo: prueba1.html
-Enlaces:
+prueba1.html
+Enlaces (0):
 
-Imágenes:
+Imágenes (0):
 
-Balanceado: False
+Balanceado: True
 
-Archivo: prueba2.html
-Enlaces:
-http://www.bbc.co.uk
-Imágenes:
+prueba2.html
+Enlaces (0):
 
-Balanceado: False
+Imágenes (0):
 
-Archivo: prueba3.html
-Enlaces:
-http://www.bbc.co.uk
-http://www.ibm.com
-Imágenes:
-https://www.uspceu.com/Portals/_default/skins/uspceu-multi/assets/img/logos/logo-ceu-horizontal-positivo.png
-Balanceado: False
+Balanceado: True
 
-Archivo: prueba4.html
-Enlaces:
-http://www.bbc.co.uk
-Imágenes:
+prueba3.html
+Enlaces (0):
 
-Balanceado: False
+Imágenes (0):
 
-Archivo: prueba5.html
-Enlaces:
-http://www.bbc.co.uk
-Imágenes:
+Balanceado: True
+
+prueba4.html
+Enlaces (0):
+
+Imágenes (0):
 
 Balanceado: False
 
-Archivo: prueba6.html
-Enlaces:
-https://www.amazon.es/gp/cart/view.htmlref_=nav_cart
-Imágenes:
-https://imageseu.sslimagesamazon.com/images/G/30/gno/sprites/navspriteglobal1xhmdskreorg._CB405936353_.png
-https://imageseu.sslimagesamazon.com/images/G/30/EUBluefield/Price_Perception/Money_Saving_Programs/Photoshoot/SWM_ES_WArehoouse_deals._CB650609307_.jpg
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/AMAZON_FASHION_ES_LOGO_384x90._CB452866070_.jpg
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
-https://imageseu.sslimagesamazon.com/images/G/30/AMAZON_FASHION/2021/PRIME_WARDROBE/REBRAND/es_ES/TBYB_Right_Nav._CB639750114_.jpg
+prueba5.html
+Enlaces (0):
+
+Imágenes (0):
+
 Balanceado: False
+
+prueba6.html
+Enlaces (0):
+
+Imágenes (0):
+
+Balanceado: True
 
