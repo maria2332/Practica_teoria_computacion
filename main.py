@@ -1,23 +1,25 @@
-import os
 from lexer import lexer
 from parser import parser, stack
 
-# Lista de archivos
-archivos = [f"prueba{i}.html" for i in range(1, 7)]
+archivos = [
+    "prueba1.html",
+    "prueba4.html",
+    "prueba6.html"
+]
 
 for archivo in archivos:
     print("=" * 60)
-    print(f"Analizando: {archivo}")
+    print(f"📄 Analizando: {archivo}")
 
-    with open(archivo, encoding='utf-8') as f:
+    with open(archivo, encoding="utf-8") as f:
         data = f.read()
 
-    # Reset de resultados
+    # Reset para cada archivo
     urls = []
     imagenes = []
     stack.clear()
 
-    # Análisis léxico
+    # Lexer: Extraer href y src
     lexer.input(data)
     while tok := lexer.token():
         if tok.type == 'HREF':
@@ -25,16 +27,14 @@ for archivo in archivos:
         elif tok.type == 'SRC':
             imagenes.append(tok.value)
 
-    # Mostrar resultados
-    print("\nHipervínculos encontrados:")
-    for url in urls:
-        print(" -", url)
+    print("\n🔗 Enlaces encontrados:")
+    for u in urls:
+        print(f" - {u}")
 
-    print("\nImágenes encontradas:")
+    print("\n🖼️ Imágenes encontradas:")
     for img in imagenes:
-        print(" -", img)
+        print(f" - {img}")
 
-    # Análisis sintáctico (balanceo)
-    print("\nChequeando balanceo del HTML...")
+    print("\n📐 Comprobando balanceo de etiquetas...")
     parser.parse(data)
     print("\n")
