@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-tokens = ['HREF', 'SRC', 'URL']
+tokens = ['A_OPEN', 'IMG_OPEN', 'HREF', 'SRC', 'URL']
 
 def t_HREF(t):
     r'href'
@@ -13,6 +13,14 @@ def t_SRC(t):
 def t_URL(t):
     r'\"([^"]+)\"'
     t.value = t.value.strip('"')
+    return t
+
+def t_A_OPEN(t):
+    r'<a'
+    return t
+
+def t_IMG_OPEN(t):
+    r'<img'
     return t
 
 t_ignore = ' \t\n'

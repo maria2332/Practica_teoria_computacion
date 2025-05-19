@@ -5,17 +5,26 @@ from parser import is_html_balanced
 def extraer_urls(html):
     hrefs = []
     srcs = []
-    last_token = ""
 
     lexer.input(html)
+    last_open_tag = None
+    last_token = ""
+
     for tok in lexer:
-        if last_token == "HREF" and tok.type == "URL":
+        if tok.type == "A_OPEN":
+            last_open_tag = "a"
+        elif tok.type == "IMG_OPEN":
+            last_open_tag = "img"
+
+        if last_token == "HREF" and tok.type == "URL" and last_open_tag == "a":
             hrefs.append(tok.value)
-        elif last_token == "SRC" and tok.type == "URL":
+        elif last_token == "SRC" and tok.type == "URL" and last_open_tag == "img":
             srcs.append(tok.value)
+
         last_token = tok.type
 
     return hrefs, srcs
+
 
 def main():
     archivos = sorted(f for f in os.listdir() if f.endswith(".html"))
