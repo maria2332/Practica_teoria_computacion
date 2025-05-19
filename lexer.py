@@ -1,5 +1,6 @@
 import ply.lex as lex
 
+# Tokens definidos
 tokens = ['TAG_OPEN', 'TAG_CLOSE', 'HREF', 'SRC', 'URL']
 
 def t_TAG_OPEN(t):
@@ -24,6 +25,7 @@ def t_URL(t):
     t.value = t.value.strip('"')
     return t
 
+# Ignorar espacios y saltos de línea
 t_ignore = ' \t\r\n'
 
 def t_error(t):

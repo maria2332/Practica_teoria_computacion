@@ -1,32 +1,53 @@
-import ply.lex as lex
+import re
+from lexer import lexer
 
-tokens = ['TAG_OPEN', 'TAG_CLOSE', 'HREF', 'SRC', 'URL']
+# Comprueba si el HTML está bien balanceado
+def is_html_balanced(html):
+    stack = []
+    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
+    void_tags = {'br', 'img', 'meta', 'hr', 'input', 'link', 'source', 'track', 'area', 'base', 'col', 'embed', 'wbr'}
 
-def t_TAG_OPEN(t):
-    r'<\s*(a|img)\b'
-    t.value = t.value.lower().strip('<').strip()
-    return t
+    for slash, tag in tags:
+        tag = tag.lower()
+        if tag in void_tags:
+            continue
+        if not slash:
+            stack.append(tag)
+        else:
+            if not stack or stack[-1] != tag:
+                return False
+            stack.pop()
+    return len(stack) == 0
 
-def t_TAG_CLOSE(t):
-    r'/?>'
-    return t
+# Extrae los enlaces e imágenes con lógica de contexto
+def parse_html(html):
+    hrefs = []
+    srcs = []
 
-def t_HREF(t):
-    r'href'
-    return t
+    lexer.input(html)
+    context = None
+    last_token = None
 
-def t_SRC(t):
-    r'src'
-    return t
+    for tok in lexer:
+        if tok.type == 'TAG_OPEN':
+            context = tok.value  # 'a' o 'img'
 
-def t_URL(t):
-    r'"[^"]+"'
-    t.value = t.value.strip('"')
-    return t
+        elif tok.type == 'HREF' and context == 'a':
+            last_token = 'HREF'
 
-t_ignore = ' \t\r\n'
+        elif tok.type == 'SRC' and context == 'img':
+            last_token = 'SRC'
 
-def t_error(t):
-    t.lexer.skip(1)
+        elif tok.type == 'URL':
+            if last_token == 'HREF' and context == 'a':
+                hrefs.append(tok.value)
+                last_token = None
+            elif last_token == 'SRC' and context == 'img':
+                srcs.append(tok.value)
+                last_token = None
 
-lexer = lex.lex()
+        elif tok.type == 'TAG_CLOSE':
+            context = None
+            last_token = None
+
+    return hrefs, srcs
