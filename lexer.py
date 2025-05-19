@@ -1,6 +1,9 @@
 import ply.lex as lex
 
-tokens = ['TAG_OPEN_A', 'TAG_OPEN_IMG', 'TAG_CLOSE', 'HREF', 'SRC', 'EQUALS', 'URL', 'OTHER_TAG']
+tokens = [
+    'TAG_OPEN_A', 'TAG_OPEN_IMG', 'TAG_CLOSE',
+    'HREF', 'SRC', 'EQUALS', 'URL', 'IDENTIFIER'
+]
 
 def t_TAG_OPEN_A(t):
     r'<\s*a\b'
@@ -27,13 +30,13 @@ def t_EQUALS(t):
     return t
 
 def t_URL(t):
-    r'"[^"]+"'
+    r'"[^"]*"'
     t.value = t.value.strip('"')
     return t
 
-def t_OTHER_TAG(t):
-    r'<[^>]+>'
-    return None  # ignoramos otras etiquetas
+def t_IDENTIFIER(t):
+    r'[a-zA-Z_:][a-zA-Z0-9_\-:.]*'
+    return t
 
 t_ignore = ' \t\r\n'
 
