@@ -1,24 +1,29 @@
-import os
 from parser import parse_html, is_html_balanced
+import os
 
 def analizar_archivo(filename):
     with open(filename, "r", encoding="utf-8") as f:
         contenido = f.read()
 
-    enlaces, imagenes = parse_html(contenido)
-    balanceado = is_html_balanced()
+    enlaces, imagenes, errores = parse_html(contenido)
 
-    print(f"\n🧪 {os.path.basename(filename)}")
+    print(f"\n🧪 {os.path.basename(filename)}\n")
 
-    print(f"\nEnlaces (<a href=...>): {len(enlaces)}")
+    print(f"Enlaces (<a href=...>): {len(enlaces)}")
     for e in enlaces:
-        print(f'\n<a href="{e}"> → ✅ Correcto')
+        print(f'<a href="{e}"> → ✅ Correcto')
 
     print(f"\nImágenes (<img src=...>): {len(imagenes)}")
     for i in imagenes:
-        print(f'\n<img src="{i}"> → ✅ Correcto')
+        print(f'<img src="{i}"> → ✅ Correcto')
 
-    print(f"\nBalanceado: {'✅ Sí' if balanceado else '❌ No'}")
+    if is_html_balanced():
+        print("\nBalanceado: ✅ Sí")
+    else:
+        print("\nBalanceado: ❌ No")
+        print(" - Errores detectados:")
+        for err in errores:
+            print(f" - {err}")
 
 if __name__ == "__main__":
     print("🔍 Iniciando análisis de HTMLs...")
