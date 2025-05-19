@@ -1,3 +1,4 @@
+# lexer.py
 import ply.lex as lex
 
 tokens = ['TAG_NAME', 'HREF', 'SRC', 'URL']
@@ -16,7 +17,7 @@ def t_SRC(t):
     return t
 
 def t_URL(t):
-    r'"[^"]+"'
+    r'"[^">]+"'
     t.value = t.value.strip('"')
     return t
 

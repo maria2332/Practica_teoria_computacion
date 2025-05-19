@@ -1,3 +1,4 @@
+# main.py
 import os
 from parser import parse_html, is_html_balanced
 
