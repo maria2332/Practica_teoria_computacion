@@ -1,10 +1,11 @@
 import ply.yacc as yacc
 from lexer import tokens
 
+# Pila para comprobar balanceo
 stack = []
 
 def p_html(p):
-    '''html : elementos'''
+    'html : elementos'
     if stack:
         print("HTML mal balanceado. Pila final:", stack)
     else:
@@ -17,22 +18,25 @@ def p_elementos(p):
 
 def p_elemento_tag_open(p):
     'elemento : TAG_OPEN'
-    tag = p[1].split()[0][1:]  # extrae nombre sin "<"
+    # extrae el nombre de la etiqueta del TAG_OPEN, e.g., <div id="x"> → div
+    tag = p[1][1:].split()[0].lower()
     stack.append(tag)
 
 def p_elemento_tag_close(p):
     'elemento : TAG_CLOSE'
-    tag = p[1][2:-1]
-    if not stack or stack[-1] != tag:
+    # extrae el nombre de cierre: </div> → div
+    tag = p[1][2:-1].strip().lower()
+    if not stack:
         print(f"Error: cerrando {tag} sin corresponder.")
     else:
-        stack.pop()
+        open_tag = stack.pop()
+        if open_tag != tag:
+            print(f"Error: cerrando {tag}, pero se esperaba {open_tag}.")
 
 def p_elemento_self_closing(p):
     'elemento : SELF_CLOSING'
-    pass  # no necesita balanceo
+    # se ignoran etiquetas autocontenidas como <img />
+    pass
 
 def p_error(p):
     print("Error de sintaxis")
-
-parser = yacc.yacc()

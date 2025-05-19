@@ -4,7 +4,6 @@ Unused terminals:
 
     HREF
     SRC
-    TEXT
 
 Grammar
 
@@ -23,7 +22,6 @@ SELF_CLOSING         : 6
 SRC                  : 
 TAG_CLOSE            : 5
 TAG_OPEN             : 4
-TEXT                 : 
 error                : 
 
 Nonterminals, with rules where they appear
