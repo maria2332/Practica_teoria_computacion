@@ -1,29 +1,32 @@
 import ply.lex as lex
 
-# Tokens necesarios
-tokens = ['HREF', 'SRC', 'URL']
+# Tokens que nos interesan
+tokens = (
+    'TAG_OPEN',
+    'TAG_CLOSE',
+    'SELF_CLOSING',
+    'HREF',
+    'SRC',
+)
 
-# Reglas léxicas
+# Expresiones regulares
+t_TAG_OPEN = r'<[a-zA-Z]+[^>]*?>'
+t_TAG_CLOSE = r'</[a-zA-Z]+>'
+t_SELF_CLOSING = r'<[a-zA-Z]+[^>]*?/>'
+t_ignore = ' \t\n'
+
 def t_HREF(t):
-    r'href'
+    r'href=["\'](.*?)["\']'
+    t.value = t.value.split('=')[1].strip('"\'')
     return t
 
 def t_SRC(t):
-    r'src'
+    r'src=["\'](.*?)["\']'
+    t.value = t.value.split('=')[1].strip('"\'')
     return t
 
-# Captura cualquier contenido entre comillas (no solo http)
-def t_URL(t):
-    r'\"([^"]+)\"'
-    t.value = t.value.strip('"')
-    return t
-
-# Ignorar espacios, tabulaciones y saltos de línea
-t_ignore = ' \t\n'
-
-# Manejo de errores
 def t_error(t):
+    print(f"Carácter ilegal: {t.value[0]}")
     t.lexer.skip(1)
 
-# Construir el lexer
 lexer = lex.lex()
