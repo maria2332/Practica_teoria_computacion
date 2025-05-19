@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'HREF SELF_CLOSING SRC TAG_CLOSE TAG_OPENhtml : elementoselementos : elemento elementos\n                 | elemento : TAG_OPENelemento : TAG_CLOSEelemento : SELF_CLOSING'
+_lr_signature = 'HREF SELF_CLOSING SRC TAG_CLOSE TAG_OPEN TEXThtml : elementoselementos : elemento elementos\n                 | elemento : TAG_OPENelemento : TAG_CLOSEelemento : SELF_CLOSING'
     
 _lr_action_items = {'$end':([0,1,2,3,4,5,6,7,],[-3,0,-1,-3,-4,-5,-6,-2,]),'TAG_OPEN':([0,3,4,5,6,],[4,4,-4,-5,-6,]),'TAG_CLOSE':([0,3,4,5,6,],[5,5,-4,-5,-6,]),'SELF_CLOSING':([0,3,4,5,6,],[6,6,-4,-5,-6,]),}
 

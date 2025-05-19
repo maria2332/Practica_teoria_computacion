@@ -1,44 +1,47 @@
 import ply.lex as lex
 
-# Definimos los tokens que nos interesan
+# Solo declaramos los tokens que realmente usamos en parser.py
 tokens = (
     'TAG_OPEN',
     'TAG_CLOSE',
     'SELF_CLOSING',
+    # HREF y SRC se usan en main.py, no en parser, pero no los quitamos si los necesitas
     'HREF',
     'SRC',
-    'TEXT',  # texto plano entre etiquetas, que ahora ignoramos
 )
 
-# Ignoramos espacios, tabs y saltos de línea
+# Ignorar espacios, tabs y saltos de línea
 t_ignore = ' \t\n'
 
-# Tokens para etiquetas
+# Detectar etiquetas de apertura: <tag ...>
 t_TAG_OPEN = r'<[a-zA-Z]+[^>/]*?>'
+
+# Detectar etiquetas de cierre: </tag>
 t_TAG_CLOSE = r'</[a-zA-Z]+>'
+
+# Detectar etiquetas autocontenidas: <img ... />
 t_SELF_CLOSING = r'<[a-zA-Z]+[^>]*?/>'
 
-# Token para href
+# Detectar atributos href=""
 def t_HREF(t):
     r'href=["\'](.*?)["\']'
     t.value = t.value.split('=', 1)[1].strip('"\'')
     return t
 
-# Token para src
+# Detectar atributos src=""
 def t_SRC(t):
     r'src=["\'](.*?)["\']'
     t.value = t.value.split('=', 1)[1].strip('"\'')
     return t
 
-# Ignorar texto entre etiquetas
+# Ignorar contenido textual no HTML (opcional)
 def t_TEXT(t):
     r'[^<>\s"\']+'
     pass
 
 # Manejo de errores léxicos
 def t_error(t):
-    # En lugar de imprimir, simplemente ignoramos cualquier carácter inesperado
     t.lexer.skip(1)
 
-# Construimos el analizador léxico
+# Crear el lexer
 lexer = lex.lex()
