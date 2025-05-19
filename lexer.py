@@ -1,11 +1,14 @@
-# lexer.py
 import ply.lex as lex
 
-tokens = ['TAG_NAME', 'HREF', 'SRC', 'URL']
+tokens = ['TAG_OPEN', 'TAG_CLOSE', 'HREF', 'SRC', 'URL']
 
-def t_TAG_NAME(t):
-    r'<(a|img)\b'
-    t.value = t.value[1:]  # elimina el símbolo '<'
+def t_TAG_OPEN(t):
+    r'<\s*(a|img)\b'
+    t.value = t.value.lower().strip('<').strip()
+    return t
+
+def t_TAG_CLOSE(t):
+    r'/?>'
     return t
 
 def t_HREF(t):
@@ -17,7 +20,7 @@ def t_SRC(t):
     return t
 
 def t_URL(t):
-    r'"[^">]+"'
+    r'"[^"]+"'
     t.value = t.value.strip('"')
     return t
 

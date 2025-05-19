@@ -1,45 +1,32 @@
-# parser.py
-import re
-from lexer import lexer
+import ply.lex as lex
 
-def is_html_balanced(html):
-    stack = []
-    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
-    void_tags = {'br', 'img', 'meta', 'hr', 'input', 'link', 'source', 'track', 'area', 'base', 'col', 'embed', 'wbr'}
+tokens = ['TAG_OPEN', 'TAG_CLOSE', 'HREF', 'SRC', 'URL']
 
-    for slash, tag in tags:
-        tag = tag.lower()
-        if tag in void_tags:
-            continue
-        if not slash:
-            stack.append(tag)
-        else:
-            if not stack or stack[-1] != tag:
-                return False
-            stack.pop()
-    return len(stack) == 0
+def t_TAG_OPEN(t):
+    r'<\s*(a|img)\b'
+    t.value = t.value.lower().strip('<').strip()
+    return t
 
-def parse_html(html):
-    hrefs = []
-    srcs = []
+def t_TAG_CLOSE(t):
+    r'/?>'
+    return t
 
-    lexer.input(html)
-    last_tag = None
-    last_token = None
+def t_HREF(t):
+    r'href'
+    return t
 
-    for tok in lexer:
-        if tok.type == 'TAG_NAME':
-            last_tag = tok.value.lower()
+def t_SRC(t):
+    r'src'
+    return t
 
-        elif last_token == 'HREF' and tok.type == 'URL' and last_tag == 'a':
-            hrefs.append(tok.value)
+def t_URL(t):
+    r'"[^"]+"'
+    t.value = t.value.strip('"')
+    return t
 
-        elif last_token == 'SRC' and tok.type == 'URL' and last_tag == 'img':
-            srcs.append(tok.value)
+t_ignore = ' \t\r\n'
 
-        elif tok.value in ['>', '/>']:
-            last_tag = None
+def t_error(t):
+    t.lexer.skip(1)
 
-        last_token = tok.type
-
-    return hrefs, srcs
+lexer = lex.lex()

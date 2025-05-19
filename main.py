@@ -1,31 +1,50 @@
-# main.py
-import os
-from parser import parse_html, is_html_balanced
+import re
+from lexer import lexer
 
-def main():
-    archivos = sorted([f for f in os.listdir() if f.endswith(".html")])
+def is_html_balanced(html):
+    stack = []
+    tags = re.findall(r'<(/?)([a-zA-Z0-9]+)', html)
+    void_tags = {'br', 'img', 'meta', 'hr', 'input', 'link', 'source', 'track', 'area', 'base', 'col', 'embed', 'wbr'}
 
-    with open("urls_extraidas.txt", "w", encoding="utf-8") as salida:
-        for archivo in archivos:
-            with open(archivo, encoding="utf-8") as f:
-                html = f.read()
+    for slash, tag in tags:
+        tag = tag.lower()
+        if tag in void_tags:
+            continue
+        if not slash:
+            stack.append(tag)
+        else:
+            if not stack or stack[-1] != tag:
+                return False
+            stack.pop()
+    return len(stack) == 0
 
-            enlaces, imagenes = parse_html(html)
-            balanceado = is_html_balanced(html)
+def parse_html(html):
+    hrefs = []
+    srcs = []
 
-            print(f"\n🗂️ Procesando {archivo}")
-            print(f"🔗 Enlaces encontrados: {len(enlaces)}")
-            for e in enlaces:
-                print(f" - {e}")
-            print(f"🖼️ Imágenes encontradas: {len(imagenes)}")
-            for i in imagenes:
-                print(f" - {i}")
-            print(f"📐 ¿HTML balanceado?: {balanceado}")
+    lexer.input(html)
+    context = None  # 'a' o 'img'
+    last_token = None
 
-            salida.write(f"{archivo}\n")
-            salida.write(f"Enlaces ({len(enlaces)}):\n" + "\n".join(enlaces) + "\n")
-            salida.write(f"Imágenes ({len(imagenes)}):\n" + "\n".join(imagenes) + "\n")
-            salida.write(f"Balanceado: {balanceado}\n\n")
+    for tok in lexer:
+        if tok.type == 'TAG_OPEN':
+            context = tok.value  # guardamos si es a o img
 
-if __name__ == "__main__":
-    main()
+        elif tok.type == 'HREF' and context == 'a':
+            last_token = 'HREF'
+        elif tok.type == 'SRC' and context == 'img':
+            last_token = 'SRC'
+
+        elif tok.type == 'URL':
+            if last_token == 'HREF' and context == 'a':
+                hrefs.append(tok.value)
+                last_token = None
+            elif last_token == 'SRC' and context == 'img':
+                srcs.append(tok.value)
+                last_token = None
+
+        elif tok.type == 'TAG_CLOSE':
+            context = None
+            last_token = None
+
+    return hrefs, srcs
