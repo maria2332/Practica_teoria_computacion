@@ -1,44 +1,29 @@
-import os
 from lexer import lexer
-from parser import is_html_balanced  # Usa tu verificador basado en pila
+from parser import parser
 
-def extraer_urls(html):
-    hrefs = []
-    srcs = []
-    last_token = ""
+# Carga HTML de prueba
+with open("test_page.html", encoding='utf-8') as f:
+    data = f.read()
 
-    lexer.input(html)
+# Lexer: extraer URLs
+lexer.input(data)
+urls = []
+images = []
 
-    for tok in lexer:
-        if last_token == "HREF" and tok.type == "URL":
-            hrefs.append(tok.value)
-        elif last_token == "SRC" and tok.type == "URL":
-            srcs.append(tok.value)
-        last_token = tok.type
+while tok := lexer.token():
+    if tok.type == 'HREF':
+        urls.append(tok.value)
+    elif tok.type == 'SRC':
+        images.append(tok.value)
 
-    return hrefs, srcs
+print("Hipervínculos encontrados:")
+for url in urls:
+    print(" -", url)
 
-def main():
-    carpeta = "."  # Carpeta actual
-    archivos = sorted(f for f in os.listdir(carpeta) if f.endswith(".html"))
+print("\nImágenes encontradas:")
+for img in images:
+    print(" -", img)
 
-    for archivo in archivos:
-        with open(os.path.join(carpeta, archivo), encoding='utf-8') as f:
-            html = f.read()
-
-        hrefs, srcs = extraer_urls(html)
-        balanceado = is_html_balanced(html)
-
-        print(f"\n🗂️ Procesando {archivo}")
-        print(f"🔗 Enlaces encontrados: {len(hrefs)}")
-        for h in hrefs:
-            print(f" - {h}")
-
-        print(f"🖼️ Imágenes encontradas: {len(srcs)}")
-        for s in srcs:
-            print(f" - {s}")
-
-        print(f"📐 ¿HTML balanceado?: {balanceado}")
-
-if __name__ == "__main__":
-    main()
+# Parser: balanceo
+print("\nChequeando balanceo del HTML...")
+parser.parse(data)
