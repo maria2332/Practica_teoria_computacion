@@ -1,35 +1,34 @@
-
 --- URLs extraídas de prueba1.html ---
-Enlaces:
-Imágenes:
+Enlaces (0):
+Imágenes (0):
 
 --- URLs extraídas de prueba2.html ---
-Enlaces:
+Enlaces (1):
 http://www.bbc.co.uk
-Imágenes:
+Imágenes (1):
 brushedsteel.jpg
 
 --- URLs extraídas de prueba3.html ---
-Enlaces:
+Enlaces (2):
 http://www.bbc.co.uk
 http://www.ibm.com
-Imágenes:
+Imágenes (1):
 https://www.uspceu.com/Portals/_default/skins/uspceu-multi/assets/img/logos/logo-ceu-horizontal-positivo.png
 
 --- URLs extraídas de prueba4.html ---
-Enlaces:
+Enlaces (1):
 http://www.bbc.co.uk
-Imágenes:
+Imágenes (1):
 brushedsteel.jpg
 
 --- URLs extraídas de prueba5.html ---
-Enlaces:
+Enlaces (1):
 http://www.bbc.co.uk
-Imágenes:
+Imágenes (1):
 brushedsteel.jpg
 
 --- URLs extraídas de prueba6.html ---
-Enlaces:
+Enlaces (48):
 /refnav_logo
 /customerpreferences/editie=UTF8preferencesReturnUrl=2Fref_=topnav_lang
 /customerpreferences/editie=UTF8preferencesReturnUrl=2Fref_=topnav_lang
@@ -78,7 +77,7 @@ https://www.amazon.es/gp/cart/view.htmlref_=nav_cart
 /s/other/ie=UTF8bbn=5512276031pickerToList=lbr_brands_browsebinqid=1516779943rh=n3A5512276031ref_=sv_mega_sv_8
 /b/ie=UTF8node=20956510031ref_=sv_mega_sv_9
 /trybeforeyoubuy/_encoding=UTF8ref_=sv_mega_sv_10
-Imágenes:
+Imágenes (14):
 //flseu.amazon.es/1/batch/1/OP/A1RKKUPIHCS9HS:26263736334068034:FZQD71TWGB7M4YNCP583$uedata=s:2Frd2Fuedata3Fstaticb26id3DFZQD71TWGB7M4YNCP58326pty3DCheckoutPrefetch26spty3Dprefetchassets26pti3D:1000
 https://imageseu.sslimagesamazon.com/images/G/30/gno/sprites/navspriteglobal1xhmdskreorg._CB405936353_.png
 https://imageseu.sslimagesamazon.com/images/G/30/EUBluefield/Price_Perception/Money_Saving_Programs/Photoshoot/SWM_ES_WArehoouse_deals._CB650609307_.jpg
@@ -93,3 +92,4 @@ https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Ar
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZON_FASHION/2021/PRIME_WARDROBE/REBRAND/es_ES/TBYB_Right_Nav._CB639750114_.jpg
+
