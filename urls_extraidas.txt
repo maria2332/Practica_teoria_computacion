@@ -1,36 +1,12 @@
 --- URLs extraídas de prueba1.html ---
 Enlaces (0):
 Imágenes (0):
-Estadísticas de etiquetas:
-  <a>: 0
-  <img>: 0
-  <br>: 0
-  <div>: 0
-  <li>: 0
-  <ul>: 0
-  <p>: 0
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de prueba2.html ---
 Enlaces (1):
 http://www.bbc.co.uk
 Imágenes (1):
 brushedsteel.jpg
-Estadísticas de etiquetas:
-  <a>: 1
-  <img>: 1
-  <br>: 1
-  <div>: 0
-  <li>: 0
-  <ul>: 0
-  <p>: 1
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de prueba3.html ---
 Enlaces (2):
@@ -38,54 +14,18 @@ http://www.bbc.co.uk
 http://www.ibm.com
 Imágenes (1):
 https://www.uspceu.com/Portals/_default/skins/uspceu-multi/assets/img/logos/logo-ceu-horizontal-positivo.png
-Estadísticas de etiquetas:
-  <a>: 2
-  <img>: 1
-  <br>: 1
-  <div>: 0
-  <li>: 0
-  <ul>: 0
-  <p>: 1
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de prueba4.html ---
 Enlaces (1):
 http://www.bbc.co.uk
 Imágenes (1):
 brushedsteel.jpg
-Estadísticas de etiquetas:
-  <a>: 1
-  <img>: 1
-  <br>: 1
-  <div>: 0
-  <li>: 0
-  <ul>: 0
-  <p>: 2
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de prueba5.html ---
 Enlaces (1):
 http://www.bbc.co.uk
 Imágenes (1):
 brushedsteel.jpg
-Estadísticas de etiquetas:
-  <a>: 1
-  <img>: 1
-  <br>: 1
-  <div>: 0
-  <li>: 0
-  <ul>: 0
-  <p>: 1
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de prueba6.html ---
 Enlaces (48):
@@ -152,38 +92,15 @@ https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Ar
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZONFASHION/SUBNAV/MEGASUB/Arrow_grey_21x13._CB485933084_.png
 https://imageseu.sslimagesamazon.com/images/G/30/AMAZON_FASHION/2021/PRIME_WARDROBE/REBRAND/es_ES/TBYB_Right_Nav._CB639750114_.jpg
-Estadísticas de etiquetas:
-  <a>: 51
-  <img>: 14
-  <br>: 0
-  <div>: 42
-  <li>: 0
-  <ul>: 0
-  <p>: 0
-  <span>: 47
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de https://www.example.com ---
 Enlaces (1):
 https://www.iana.org/domains/example
 Imágenes (0):
-Estadísticas de etiquetas:
-  <a>: 1
-  <img>: 0
-  <br>: 0
-  <div>: 1
-  <li>: 0
-  <ul>: 0
-  <p>: 2
-  <span>: 0
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
 --- URLs extraídas de https://www.python.org ---
-Enlaces (207):
+Enlaces (209):
+http://browsehappy.com/
 #content
 #python-network
 /
@@ -391,20 +308,9 @@ https://status.python.org/
 /psf-landing/
 /about/legal/
 https://policies.python.org/python.org/Privacy-Notice/
+/psf/community-infrastructure
 Imágenes (1):
 /static/img/python-logo.png
-Estadísticas de etiquetas:
-  <a>: 207
-  <img>: 1
-  <br>: 0
-  <div>: 48
-  <li>: 162
-  <ul>: 28
-  <p>: 23
-  <span>: 70
-  <table>: 1
-  <td>: 1
-  <tr>: 1
 
 --- URLs extraídas de https://www.wikipedia.org ---
 Enlaces (370):
@@ -780,16 +686,4 @@ https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use
 https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy
 Imágenes (1):
 portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png
-Estadísticas de etiquetas:
-  <a>: 370
-  <img>: 1
-  <br>: 0
-  <div>: 87
-  <li>: 342
-  <ul>: 7
-  <p>: 2
-  <span>: 60
-  <table>: 0
-  <td>: 0
-  <tr>: 0
 
