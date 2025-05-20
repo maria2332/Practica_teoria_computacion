@@ -1,3 +1,4 @@
+import requests
 from bs4 import BeautifulSoup
 
 # Etiquetas a contar para estadísticas
