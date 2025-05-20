@@ -205,8 +205,8 @@ https://pyfound.blogspot.com/2025/04/2025-psf-board-election-schedule-change.htm
 /events/python-events/1873/
 /events/python-user-group/2028/
 /success-stories/
-/success-stories/python-provides-convenience-and-flexibility-for-scalable-mlai/
-/success-stories/python-provides-convenience-and-flexibility-for-scalable-mlai/
+/success-stories/zama-concrete-ml-simplifying-homomorphic-encryption-for-python-machine-learning/
+/success-stories/zama-concrete-ml-simplifying-homomorphic-encryption-for-python-machine-learning/
 /about/apps
 http://www.djangoproject.com/
 http://www.pylonsproject.org/
