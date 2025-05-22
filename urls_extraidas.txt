@@ -199,11 +199,11 @@ https://pyfound.blogspot.com/2025/05/a-thank-you-to-oregon-state-university.html
 https://pyfound.blogspot.com/2025/04/congrats-loren.html
 https://pyfound.blogspot.com/2025/04/2025-psf-board-election-schedule-change.html
 /events/calendars/
-/events/python-user-group/2001/
 /events/python-user-group/1988/
 /events/python-user-group/2013/
 /events/python-events/1873/
 /events/python-user-group/2028/
+/events/python-events/2026/
 /success-stories/
 /success-stories/zama-concrete-ml-simplifying-homomorphic-encryption-for-python-machine-learning/
 /success-stories/zama-concrete-ml-simplifying-homomorphic-encryption-for-python-machine-learning/
