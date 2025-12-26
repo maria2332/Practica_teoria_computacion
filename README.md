@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/PLY-Lexer%20%2B%20Parser-7B2CBF?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/HTML-URL%20Extraction-E34F26?logo=html5&logoColor=white&style=for-the-badge"/>
   
-  <a href="https://deepwiki.com/maria2332/Statistical-work-on-diabetes-in-R/1-home" target="_blank">
+  <a href="https://deepwiki.com/maria2332/Practica_teoria_computacion" target="_blank">
     <img src="https://img.shields.io/badge/DeepWiki-Documentation-purple?style=for-the-badge"/>
   </a>
 </p>
