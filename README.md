@@ -1,80 +1,73 @@
-# Practica_teoria_computacion
+<h1 align="center">🕸️ HTML URL Extraction & Structural Analysis</h1>
 
-María Arribas Ballesteros, 3ª Ingeniería Matemática
+<p align="center">
+  <strong>Academic project</strong> for <em>Teoría de la Computación</em> (3rd year, Ingeniería Matemática).<br/>
+  Extracts URLs from real and local HTML using <strong>two complementary approaches</strong>:
+  <strong>BeautifulSoup</strong> (robust extraction) and <strong>PLY</strong> (lexer+parser for structural validation).
+</p>
 
-
-# Proyecto Extracción y Análisis de URLs en HTML
-
-Este proyecto permite extraer URLs de enlaces e imágenes desde documentos HTML y páginas web reales mediante dos métodos distintos:
-
-- **BeautifulSoup:** Análisis flexible y tolerante, ideal para extracción rápida y manejo general de HTML.
-- **PLY (Lexer + Parser):** Análisis sintáctico más riguroso, que además verifica el balanceo y la corrección estructural del HTML.
-
----
-
-## Archivos principales
-
-- bs4_extractor.py  
-  Script que utiliza BeautifulSoup para analizar HTML y extraer URLs.  
-  **Uso:** Ejecutar para obtener enlaces, imágenes y estadísticas de etiquetas mediante este método.
-
-- main.py  
-  Script que utiliza PLY (lexer y parser) para un análisis más exhaustivo que incluye detección de errores estructurales y balanceo.  
-  **Uso:** Ejecutar para análisis detallado y validación sintáctica.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white&style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/BeautifulSoup-HTML%20Parsing-0A7E8C?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/PLY-Lexer%20%2B%20Parser-7B2CBF?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/HTML-URL%20Extraction-E34F26?logo=html5&logoColor=white&style=for-the-badge"/>
+</p>
 
 ---
 
-## Requisitos previos
+## 👩‍🎓 Academic Context
 
-- Python 3.x instalado.
-- Librerías necesarias:
+- **Student:** María Arribas Ballesteros  
+- **Degree:** Ingeniería Matemática (3rd year)  
+- **Course:** Teoría de la Computación  
 
-  Para BeautifulSoup: pip install requests beautifulsoup4
+This project explores two different ways of analyzing HTML documents:
 
-  
-Para PLY (si no está instalado): pip install ply
-
-
-- Asegúrate de que los archivos lexer.py y parser.py estén en el mismo directorio que main.py.
+1. **BeautifulSoup** → tolerant, fast extraction (handles messy HTML).
+2. **PLY (Lexer + Parser)** → stricter syntactic analysis (detects structural issues and tag balancing).
 
 ---
 
-## Instrucciones de ejecución
+## 🎯 Objectives
 
-### Análisis con BeautifulSoup
-
-1. Ejecuta el script: bs4_extractor.py
-
-
-2. El programa analizará URLs definidas y archivos HTML locales, mostrando por consola los enlaces, imágenes y estadísticas de etiquetas.
-
-3. Los resultados se guardarán en el archivo `urls_bs4_extraidas.txt`.
-
----
-
-### Análisis con PLY
-
-1. Ejecuta el script: main.py
-
-
-2. El programa analizará las mismas URLs y archivos HTML, pero realizará además una comprobación del balanceo y reportará errores estructurales.
-
-3. Los resultados y errores se mostrarán por consola y se guardarán en `urls_extraidas.txt`.
+- Extract **URLs** from:
+  - Anchor tags: `<a href="...">`
+  - Image tags: `<img src="...">`
+- Support:
+  - **Local HTML files**
+  - **Real webpages** (online)
+- Compare approaches:
+  - **Extraction reliability**
+  - **HTML structural validation**
+  - **Tag balancing detection** (PLY)
 
 ---
 
-## Descripción general
+## 🧠 Project Overview
 
-- Ambos métodos permiten evaluar el contenido HTML desde fuentes locales o en línea.
-- BeautifulSoup es más tolerante a errores de sintaxis HTML y corrige internamente, por lo que no reporta errores de balanceo.
-- PLY ofrece un análisis detallado que detecta inconsistencias en la estructura del HTML.
-- Se recomienda usar ambos métodos para un análisis complementario: BeautifulSoup para extracción rápida y PLY para validación estructural.
+### ✅ BeautifulSoup (bs4_extractor.py)
+- Flexible parsing (tolerant to malformed HTML).
+- Focus: **fast URL extraction** + basic tag statistics.
+- Output:
+  - Console summary
+  - `urls_bs4_extraidas.txt`
+
+### ✅ PLY Lexer+Parser (main.py + lexer.py + parser.py)
+- Formal lexical + syntactic analysis.
+- Focus: **URL extraction + structural validation**
+- Reports:
+  - Unbalanced / mismatched tags
+  - Structural inconsistencies
+- Output:
+  - Console report
+  - `urls_extraidas.txt`
 
 ---
 
-## Estructura de archivos
+## 📁 Repository Structure
 
-/proyecto/
+```text
+proyecto/
 ├── bs4_extractor.py
 ├── main.py
 ├── lexer.py
@@ -86,5 +79,75 @@ Para PLY (si no está instalado): pip install ply
 ├── prueba5.html
 ├── prueba6.html
 └── README.md
+````
 
 ---
+
+## ⚙️ Requirements
+
+* **Python 3.x**
+* Install dependencies:
+
+```bash
+pip install requests beautifulsoup4 ply
+```
+
+> Ensure `lexer.py` and `parser.py` are in the same directory as `main.py`.
+
+---
+
+## ▶️ How to Run
+
+### 1) BeautifulSoup analysis
+
+Runs tolerant parsing and extraction.
+
+```bash
+python bs4_extractor.py
+```
+
+**Output:**
+
+* `urls_bs4_extraidas.txt`
+* Console extraction summary
+
+---
+
+### 2) PLY analysis (Lexer + Parser)
+
+Runs strict parsing and reports structural issues.
+
+```bash
+python main.py
+```
+
+**Output:**
+
+* `urls_extraidas.txt`
+* Console report including **tag balancing / structural errors**
+
+---
+
+## 📌 Notes & Comparison
+
+| Feature                  | BeautifulSoup | PLY (Lexer + Parser)  |
+| ------------------------ | ------------- | --------------------- |
+| Robust to malformed HTML | ✅ Yes         | ❌ No (reports errors) |
+| Speed / ease of use      | ✅ High        | ⚠️ Medium             |
+| URL extraction           | ✅ Yes         | ✅ Yes                 |
+| Structural validation    | ❌ No          | ✅ Yes                 |
+| Tag balancing detection  | ❌ No          | ✅ Yes                 |
+
+**Recommended workflow:**
+Use **BeautifulSoup** for quick extraction and **PLY** for structural validation.
+
+---
+
+## 🔍 Final Remarks
+
+This repository demonstrates how different parsing strategies lead to different outcomes:
+
+* **BeautifulSoup** prioritizes extraction robustness.
+* **PLY** prioritizes formal correctness and structural consistency.
+
+Together, they provide a complementary approach to HTML analysis.
